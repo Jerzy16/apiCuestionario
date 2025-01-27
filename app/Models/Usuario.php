@@ -12,6 +12,7 @@ class Usuario extends Authenticatable
 
     protected $table = 'usuario';
     public $timestamps = false;
+    protected $primaryKey = 'CodUsu';
     protected $fillable = [
         'CodUsu',
         'NomUsu',
@@ -25,8 +26,6 @@ class Usuario extends Authenticatable
         'FnaUsu',
         'RegUsu'
     ];
-
-    protected $primaryKey = 'CodUsu';
 
     protected $casts = [
         'PassUsu' => 'hashed',

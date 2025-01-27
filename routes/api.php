@@ -4,9 +4,11 @@ use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\Cuestionario\CuestionarioController;
 use App\Http\Controllers\Cuestionario\LocalidadController;
 use App\Http\Controllers\Login\LoginController;
+use App\Http\Controllers\Usuario\RolesController;
 use App\Http\Controllers\Usuario\UsuarioController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use PharIo\Manifest\AuthorCollection;
 
 /*
 |--------------------------------------------------------------------------
@@ -41,4 +43,10 @@ Route::get('cuestionario/{id}', [CuestionarioController::class, 'getById']);
 
 Route::post('usuario', [UsuarioController::class, 'store']);
 Route::delete('usuario/{id}', [UsuarioController::class, 'destroy']);
+Route::put('usuariok/{usuario}', [UsuarioController::class, 'updateProfile']);
+Route::get('getAllUser/{id}', [LoginController::class, 'getAllUser']);
 
+Route::get('roles', [RolesController::class, 'getRoles']);
+Route::post('roles/{id}', [RolesController::class, 'createRol']);
+Route::get('usuario-roles', [RolesController::class, 'getUsuarioRoles']);
+Route::delete('roles/{id}/{admiId}', [RolesController::class, 'deleteRol']);

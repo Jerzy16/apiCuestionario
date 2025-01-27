@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\Cliente\StoreRequest;
 use App\Models\Cliente;
+use App\Models\UsuarioRoles;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -16,13 +17,29 @@ class ClienteController extends Controller
      */
     public function getAll($id)
     {
-        $clientes = DB::table('preguntas')
-        ->join('clientes', 'preguntas.CodClie', '=', 'clientes.CodClie')
-        ->where('preguntas.CodUsu', $id)
-        ->select('clientes.*')
-        ->get();
-
-        return response()->json($clientes);
+        try {
+            $isAdmin = UsuarioRoles::where('CodUsu', $id)
+                                   ->where('CodRol', 1)
+                                   ->exists(); 
+    
+            if ($isAdmin) {
+                $clientes = DB::table('preguntas')
+                              ->join('clientes', 'preguntas.CodClie', '=', 'clientes.CodClie')
+                              ->select('clientes.*')
+                              ->get();
+            } else {
+                $clientes = DB::table('preguntas')
+                              ->join('clientes', 'preguntas.CodClie', '=', 'clientes.CodClie')
+                              ->where('preguntas.CodUsu', $id)
+                              ->select('clientes.*')
+                              ->get();
+            }
+    
+            return response()->json($clientes);
+    
+        } catch (\Exception $e) {
+            return response()->json(['message' => 'Ocurrió un error', 'error' => $e->getMessage()], 500);
+        }
     }
 
     public function getClientes()
