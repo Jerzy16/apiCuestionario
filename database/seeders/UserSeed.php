@@ -13,18 +13,7 @@ class UserSeed extends Seeder
      */
     public function run(): void
     {
-        Usuario::create([
-        'NomUsu' => "pedro",
-        'AppUsu' => "c",
-        'ApmUsu' => "c",
-        'DocUsu' => "12345678",
-        'PassUsu' => "12345678",
-        'EmaUsu' => "c",
-        'CelUsu' => "12345678",
-        'sexUsu' => "c",
-        'FnaUsu' => "2020/12/12",
-        'RegUsu' => "2020/12/12"
-        ]);
+
 
         Usuario::create([
             'NomUsu' => "jerzy",
